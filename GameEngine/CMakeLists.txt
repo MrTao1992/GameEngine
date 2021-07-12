@@ -11,7 +11,7 @@ elseif(CMAKE_HOST_UNIX)
     set(LINUX 1)
 endif()
 
-project (PhantomEngine)
+project (GameEngine)
 include_directories("${PROJECT_SOURCE_DIR}/PhantomCore")
 include_directories("${PROJECT_SOURCE_DIR}/Dependencies/GLEW/include")
 include_directories("${PROJECT_SOURCE_DIR}/Dependencies/GLFW/include")
