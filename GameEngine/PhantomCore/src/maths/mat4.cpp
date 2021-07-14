@@ -43,24 +43,20 @@ namespace phantom
             elements[15] = m15;
         }
 
-        mat4x4 mat4x4::operator+(const mat4x4 &other)
+        mat4x4 mat4x4::identity()
         {
-            mat4x4 result(0);
-            for (int column = 0; column < 4; column++)
-            {
-                for (int row = 0; row < 4; row++)
-                {
-                    float sum = 0.0f;
-                    for (int i = 0; i < 4; i++)
-                    {
-                        sum = elements[row + 4 * i] + other.elements[column * 4 + i];
-                    }
-                    result.elements[column * 4 + row] = sum;
-                }
-            }
-            return result;
+            return mat4x4(1.0f);
         }
 
+        std::ostream &operator<<(std::ostream &os, const mat4x4 &m)
+        {
+
+            os << "mat4x4: (" << m.elements[0] << ", " << m.elements[4] << "," << m.elements[8] << "," << m.elements[12] << ")" << std::endl
+               << "        (" << m.elements[1] << ", " << m.elements[5] << "," << m.elements[9] << "," << m.elements[13] << ")" << std::endl
+               << "        (" << m.elements[2] << ", " << m.elements[6] << "," << m.elements[10] << "," << m.elements[14] << ")" << std::endl
+               << "        (" << m.elements[3] << ", " << m.elements[7] << "," << m.elements[11] << "," << m.elements[15] << ")" << std::endl;
+            return os;
+        }
         mat4x4 mat4x4::operator*(const mat4x4 &other)
         {
             mat4x4 result(0);
@@ -80,6 +76,7 @@ namespace phantom
             return result;
         }
 
+        //构建平移矩阵
         mat4x4 mat4x4::translation(const vec3 &translation)
         {
             mat4x4 result(1.0f);
@@ -90,7 +87,32 @@ namespace phantom
 
             return result;
         }
+        //平移矩阵
+        mat4x4 &mat4x4::translate(const vec3 &v)
+        {
+            return translate(v.x, v.y, v.z);
+        }
 
+        mat4x4 &mat4x4::translate(float x, float y, float z)
+        {
+            elements[0] += elements[3] * x;
+            elements[4] += elements[7] * x;
+            elements[8] += elements[11] * x;
+            elements[12] += elements[15] * x;
+
+            elements[1] += elements[3] * y;
+            elements[5] += elements[7] * y;
+            elements[9] += elements[11] * y;
+            elements[13] += elements[15] * y;
+
+            elements[2] += elements[3] * z;
+            elements[6] += elements[7] * z;
+            elements[10] += elements[11] * z;
+            elements[14] += elements[15] * z;
+
+            return *this;
+        }
+        //构建旋转矩阵
         mat4x4 mat4x4::rotation(float angle, const vec3 &axis)
         {
             mat4x4 result(1.0f);
@@ -115,6 +137,52 @@ namespace phantom
             result.elements[0 + 2 * 4] = x * z * omc + y * s;
             result.elements[1 + 2 * 4] = y * z * omc - x * s;
             result.elements[2 + 2 * 4] = z * omc + c;
+
+            return result;
+        }
+
+        //构建缩放矩阵
+        mat4x4 mat4x4::scale(const vec3 &scale)
+        {
+            mat4x4 result(1.0f);
+            result.elements[0 + 0 * 4] = scale.x;
+            result.elements[1 + 1 * 4] = scale.y;
+            result.elements[2 + 2 * 4] = scale.z;
+            return result;
+        }
+
+        //缩放矩阵
+        mat4x4 &mat4x4::scale(float x, float y, float z)
+        {
+            elements[0] *= x;
+            elements[4] *= x;
+            elements[8] *= x;
+            elements[12] *= x;
+            elements[1] *= y;
+            elements[5] *= y;
+            elements[9] *= y;
+            elements[13] *= y;
+            elements[2] *= z;
+            elements[6] *= z;
+            elements[10] *= z;
+            elements[14] *= z;
+            return *this;
+        }
+
+        //正交投影矩阵
+        mat4x4 mat4x4::orthographic(float left, float right, float bottom, float top, float near, float far)
+        {
+            mat4x4 result(1.0f);
+
+            result.elements[0 + 0 * 4] = 2.0f / (right - left);
+
+            result.elements[1 + 1 * 4] = 2.0f / (top - bottom);
+
+            result.elements[2 + 2 * 4] = 2.0f / (near - far);
+
+            result.elements[0 + 3 * 4] = (left + right) / (left - right);
+            result.elements[1 + 3 * 4] = (bottom + top) / (bottom - top);
+            result.elements[2 + 3 * 4] = (far + near) / (far - near);
 
             return result;
         }
