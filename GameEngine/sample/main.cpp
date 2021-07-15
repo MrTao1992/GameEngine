@@ -1,6 +1,9 @@
 #include "src/graphics/window.h"
 #include "src/maths/maths.h"
 #include "src/utils/fileUtils.h"
+#include <iostream>
+#include <string>
+#include <windows.h>
 using namespace phantom::maths;
 
 GLint m_ShaderId;
@@ -53,26 +56,24 @@ void printProgramInfoLog(GLuint obj)
 
 GLint setupShader()
 {
-    char *vs = NULL, *fs = NULL, *fs2 = NULL;
+    char *vs = NULL, *fs = NULL;
     GLuint p, v, f;
     //创建一个着色器对象
     v = glCreateShader(GL_VERTEX_SHADER);
     f = glCreateShader(GL_FRAGMENT_SHADER);
 
     vs = readFile("shaders/vert.shader");
+
     fs = readFile("shaders/frag.shader");
 
-    const char *vv = vs;
-    const char *ff = fs;
     //替换shader中的源代码
-    glShaderSource(v, 1, &vv, NULL);
-    glShaderSource(v, 1, &ff, NULL);
-    free(vs);
-    free(fs);
+    glShaderSource(v, 1, &vs, NULL);
+    glShaderSource(f, 1, &fs, NULL);
     //编译一个着色器对象
     glCompileShader(v);
     glCompileShader(f);
-
+	free(vs);
+	free(fs);
     printShaderInfoLog(v);
     printShaderInfoLog(f);
 
@@ -94,6 +95,11 @@ GLint setupShader()
 
 int main()
 {
+	char curPath[MAX_PATH];
+	GetCurrentDirectoryA(MAX_PATH, curPath);
+	printf("当前工作目录%s", curPath);
+	
+
     using namespace phantom;
     using namespace graphics;
 

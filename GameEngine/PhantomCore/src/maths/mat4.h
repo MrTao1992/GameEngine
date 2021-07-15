@@ -15,11 +15,7 @@ namespace phantom
     {
         struct mat4x4
         {
-            union
-            {
-                float elements[4 * 4];
-                vec4 columns[4];
-            };
+
             mat4x4();
             mat4x4(float diagonal);
             mat4x4(float m00, float m01, float m02, float m03,  // 1st column
@@ -44,6 +40,11 @@ namespace phantom
             //transform matrix
             mat4x4 &translate(const vec3 &t);
             mat4x4 &translate(float x, float y, float z);
+            union
+            {
+                float elements[4 * 4];
+                vec4 columns[4];
+            };
         };
 
     }

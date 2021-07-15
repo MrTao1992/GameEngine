@@ -4,10 +4,8 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-namespace phantom
-{
-    namespace graphics
-    {
+namespace phantom{
+    namespace graphics{
 
         class Window
         {
