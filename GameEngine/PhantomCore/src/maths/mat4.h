@@ -21,7 +21,6 @@ namespace phantom
                 vec4 columns[4];
             };
             mat4x4();
-            mat4x4 identity();
             mat4x4(float diagonal);
             mat4x4(float m00, float m01, float m02, float m03,  // 1st column
                    float m04, float m05, float m06, float m07,  // 2nd column
@@ -38,6 +37,7 @@ namespace phantom
             static mat4x4 scale(const vec3 &scale);
             static mat4x4 rotation(float angle, const vec3 &axis);
             static mat4x4 translation(const vec3 &translation);
+            static mat4x4 identity();
             mat4x4 &scale(float x, float y, float z);
             //正交矩阵
             mat4x4 orthographic(float left, float right, float bottom, float top, float near, float far);

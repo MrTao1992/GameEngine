@@ -1,4 +1,6 @@
 #include "window.h"
+extern double mouse_x;
+extern double mouse_y;
 
 namespace phantom
 {
@@ -6,8 +8,10 @@ namespace phantom
     {
 
         static void windowResize(GLFWwindow *window, int width, int height);
+        //添加键盘事件回调
         static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods);
-
+        //添加鼠标事件
+        static void cursor_position_callback(GLFWwindow *window, double xpos, double ypos);
         Window::Window(const char *title, int width, int height)
         {
             m_Title = title;
@@ -31,8 +35,9 @@ namespace phantom
             }
             //版本号 opengl3.0 (举例)
             glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+            // Make the window resize-able.
+            glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
             m_Window = glfwCreateWindow(m_Width, m_Height, m_Title, NULL, NULL);
             if (!m_Window)
             {
@@ -41,7 +46,9 @@ namespace phantom
             }
             glfwSetKeyCallback(m_Window, key_callback);
             glfwSetWindowSizeCallback(m_Window, windowResize);
+            glfwSetCursorPosCallback(m_Window, cursor_position_callback);
             glfwMakeContextCurrent(m_Window);
+            //设置glfw的刷帧率
             glfwSwapInterval(1);
 
             // must after  glfwMakeContextCurrent
@@ -80,6 +87,12 @@ namespace phantom
 
             glfwDestroyWindow(m_Window);
             glfwTerminate();
+        }
+
+        void cursor_position_callback(GLFWwindow *window, double xpos, double ypos)
+        {
+            mouse_x = xpos;
+            mouse_y = ypos;
         }
 
         void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods)

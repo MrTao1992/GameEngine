@@ -13,10 +13,14 @@ endif()
 
 project (GameEngine)
 include_directories("${PROJECT_SOURCE_DIR}/PhantomCore")
-include_directories("${PROJECT_SOURCE_DIR}/Dependencies/GLEW/include")
 include_directories("${PROJECT_SOURCE_DIR}/Dependencies/GLFW/include")
-link_directories("${PROJECT_SOURCE_DIR}/Dependencies/GLFW/lib-vc2015")
-link_directories("${PROJECT_SOURCE_DIR}/Dependencies/GLEW/lib/Release/Win32")
+include_directories("${PROJECT_SOURCE_DIR}/Dependencies/GLEW/include")
+
+#增加检查C编译器
+if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libstdc++")
+    message(STATUS "---------clang | libstdc++")
+endif()
 
 if(WINDOWS)
     link_directories("${PROJECT_SOURCE_DIR}/Dependencies/GLFW/lib-vc2015"
@@ -37,7 +41,8 @@ elseif(MACOS)
 
     link_directories("${PROJECT_SOURCE_DIR}/Dependencies/GLFW/lib-mac")
     link_directories("${PROJECT_SOURCE_DIR}/Dependencies/GLEW/lib/Release/mac")
-    #MESSAGE( STATUS "message = ${OPENGL_INCLUDE_DIR}.")
+    
+    # MESSAGE( STATUS "message openGL include = ${OPENGL_INCLUDE_DIR}.")
 endif(WINDOWS)
 
 add_subdirectory(PhantomCore)

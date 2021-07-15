@@ -1,6 +1,10 @@
 # 生成可执行文件
 add_executable (sample main.cpp)
 
+# copy assets
+add_custom_command(TARGET sample PRE_BUILD
+COMMAND ${CMAKE_COMMAND} -E copy_directory
+${CMAKE_SOURCE_DIR}/assets   $<TARGET_FILE_DIR:sample>)
 
 if(WINDOWS)
 	# copy dll
@@ -19,6 +23,7 @@ elseif(MACOS)
     target_link_libraries(sample  
     	PhantomCore 
     	${OPENGL_LIBRARIES} 
+        libGLEW.a
     	${EXTRA_LIBS}
     	libglfw3.a
     )
