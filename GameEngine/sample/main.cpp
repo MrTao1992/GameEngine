@@ -1,118 +1,33 @@
 #include "src/graphics/window.h"
 #include "src/maths/maths.h"
-#include "src/utils/fileUtils.h"
+#include "src/graphics/shader.h"
 #include <iostream>
 #include <string>
 #include <windows.h>
 using namespace phantom::maths;
 
-GLint m_ShaderId;
+using namespace phantom;
+using namespace graphics;
 double mouse_x = 0.0;
 double mouse_y = 0.0;
 
-//获取索引值
-GLint getUniformLocation(const GLchar *name)
-{
-    return glGetUniformLocation(m_ShaderId, name);
-}
-
-//输出shade日志信息
-void printShaderInfoLog(GLuint obj)
-{
-    int infoLenght = 0;
-    int charsWriteLen = 0;
-    char *infoLog;
-    //获取指定的shader对象信息
-    glGetShaderiv(obj, GL_INFO_LOG_LENGTH, &infoLenght);
-
-    if (infoLenght > 0)
-    {
-        infoLog = (char *)malloc(infoLenght);
-        //获取着色器对象日志
-        glGetShaderInfoLog(obj, infoLenght, &charsWriteLen, infoLog);
-        printf("%s\n", infoLog);
-        free(infoLog);
-    }
-}
-
-//输出Program日志信息
-void printProgramInfoLog(GLuint obj)
-{
-    int infoLenght = 0;
-    int charsWriteLen = 0;
-    char *infoLog;
-    //获取指定的Program对象信息
-    glGetProgramiv(obj, GL_INFO_LOG_LENGTH, &infoLenght);
-
-    if (infoLenght > 0)
-    {
-        infoLog = (char *)malloc(infoLenght);
-        //返回program对象的信息日志
-        glGetProgramInfoLog(obj, infoLenght, &charsWriteLen, infoLog);
-        printf("%s\n", infoLog);
-        free(infoLog);
-    }
-}
-
-GLint setupShader()
-{
-    char *vs = NULL, *fs = NULL;
-    GLuint p, v, f;
-    //创建一个着色器对象
-    v = glCreateShader(GL_VERTEX_SHADER);
-    f = glCreateShader(GL_FRAGMENT_SHADER);
-
-    vs = readFile("shaders/vert.shader");
-
-    fs = readFile("shaders/frag.shader");
-
-    //替换shader中的源代码
-    glShaderSource(v, 1, &vs, NULL);
-    glShaderSource(f, 1, &fs, NULL);
-    //编译一个着色器对象
-    glCompileShader(v);
-    glCompileShader(f);
-	free(vs);
-	free(fs);
-    printShaderInfoLog(v);
-    printShaderInfoLog(f);
-
-    //创建一个program
-    p = glCreateProgram();
-    //将着色器添加到program中
-    glAttachShader(p, v);
-    glAttachShader(p, f);
-
-    //连接一个program对象
-    glLinkProgram(p);
-    printProgramInfoLog(p);
-
-    //删除着色器
-    glDeleteShader(v);
-    glDeleteShader(f);
-    return p;
-}
-
 int main()
 {
-	char curPath[MAX_PATH];
-	GetCurrentDirectoryA(MAX_PATH, curPath);
-	printf("当前工作目录%s", curPath);
-	
-
-    using namespace phantom;
-    using namespace graphics;
+    char curPath[MAX_PATH];
+    GetCurrentDirectoryA(MAX_PATH, curPath);
+    printf("当前工作目录%s", curPath);
 
     Window window("phantom!", 960, 540);
     glClearColor(0.2f, 0.3f, 0.8f, 1.0f);
-
-    m_ShaderId = setupShader();
-
+    Shader shader("shaders/vert_light.shader", "shaders/frag_light.shader");
+    GLint m_ShaderId = shader.m_ShaderId;
+    shader.bind();
     //创建顶点数据
     GLfloat vertices[] = {
-        -0.5f, 0.0f, 0.0f,
-        0.5f, 0.0f, 0.0f,
-        0.0f, 0.5f, 0.0f};
+        0.5f, -0.5f, 0.0f,  // 右下角
+        -0.5f, -0.5f, 0.0f, // 左下角
+        -0.5f, 0.5f, 0.0f   // 左上角
+    };
     GLuint vaoId, vboId;
     //创建vao
     glGenVertexArrays(1, &vaoId);
@@ -127,6 +42,17 @@ int main()
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GL_FLOAT), (GLvoid *)0);
     //设置索引位置
     glEnableVertexAttribArray(0);
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
+
+    // mat4x4 pm = mat4x4::orthographic(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f);
+    mat4x4 pm = mat4x4::perspective(100.0f, 1.0f, -1.0f, 1.0f);
+    std::cout << pm;
+    shader.setUniformMat4("projection_matrix", pm);
+    shader.setUniform2f("light_pos", vec2(4.0f, 1.5f));
+    shader.setUniform4f("color_light", vec4(1.0f, 0.7f, 0.8f, 1.0f));
+    shader.setUniform1f("factor_light", 0.3f);
 
 #if (1)
     mat4x4 m2(0, 4, 8, 12,
@@ -144,16 +70,15 @@ int main()
     while (!window.closed())
     {
         window.clear();
-        glUseProgram(m_ShaderId);
-        glColor3f(0.2f, 0.3f, 0.8f);
         glBindVertexArray(vaoId);
+        shader.setUniform2f("light_pos", vec2((float)(mouse_x * 1.0f / 960.0f - 0.5f), (float)(0.5f - mouse_y * 1.0f / 540.0f)));
         //命令GPU绘制函数,一般用glDrawArrays/glDrawEmlement
-        glDrawArrays(GL_TRIANGLES, 0, 3); //参数1：绘制三角形方式,参数2:其实位置,一般为0,参数3:绘制顶点数
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glBindVertexArray(0);
         window.update();
     }
     //终止window
-    glDeleteVertexArrays(1, &vaoId);
-    glDeleteBuffers(1, &vboId);
+    shader.unbind();
     window.terminate();
 
     return 0;

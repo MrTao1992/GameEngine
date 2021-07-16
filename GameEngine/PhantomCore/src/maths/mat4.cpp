@@ -16,7 +16,7 @@ namespace phantom
         {
             for (int i = 0; i < 16; i++)
             {
-                i % 4 == 0 ? elements[i] = diagonal : elements[i] = 0.0f;
+                i % 5 == 0 ? elements[i] = diagonal : elements[i] = 0.0f;
             }
         }
 
@@ -183,6 +183,26 @@ namespace phantom
             result.elements[0 + 3 * 4] = (left + right) / (left - right);
             result.elements[1 + 3 * 4] = (bottom + top) / (bottom - top);
             result.elements[2 + 3 * 4] = (far + near) / (far - near);
+
+            return result;
+        }
+
+        //透视投影矩阵
+        mat4x4 mat4x4::perspective(float fov, float aspectRatio, float near, float far)
+        {
+            mat4x4 result(1.0f);
+
+            float q = 1.0f / tan(toRadians(0.5f * fov));
+            float a = q / aspectRatio;
+
+            float b = (near + far) / (near - far);
+            float c = (2.0f * near * far) / (near - far);
+
+            result.elements[0 + 0 * 4] = a;
+            result.elements[1 + 1 * 4] = q;
+            result.elements[2 + 2 * 4] = b;
+            result.elements[3 + 2 * 4] = -1.0f;
+            result.elements[2 + 3 * 4] = c;
 
             return result;
         }

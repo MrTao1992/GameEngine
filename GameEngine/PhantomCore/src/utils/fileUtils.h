@@ -1,6 +1,7 @@
-#pragma once
-#include <fstream>
-#include <stdlib.h>
+#ifndef _FILE_UTILS_H_
+#define _FILE_UTILS_H_
+
+#include <stdio.h>
 
 char *readFile(const char *filename)
 {
@@ -26,3 +27,4 @@ char *readFile(const char *filename)
     code[n] = '\0';
     return code;
 }
+#endif
