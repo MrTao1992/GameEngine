@@ -170,41 +170,78 @@ namespace phantom
         }
 
         //正交投影矩阵
-        mat4x4 mat4x4::orthographic(float left, float right, float bottom, float top, float near, float far)
+        mat4x4 &mat4x4::orthographic(float left, float right, float bottom, float top, float near, float far)
         {
-            mat4x4 result(1.0f);
-
-            result.elements[0 + 0 * 4] = 2.0f / (right - left);
-
-            result.elements[1 + 1 * 4] = 2.0f / (top - bottom);
-
-            result.elements[2 + 2 * 4] = 2.0f / (near - far);
-
-            result.elements[0 + 3 * 4] = (left + right) / (left - right);
-            result.elements[1 + 3 * 4] = (bottom + top) / (bottom - top);
-            result.elements[2 + 3 * 4] = (far + near) / (far - near);
-
-            return result;
+            if (left == right || bottom == top || near == far)
+            {
+                throw "null frustum";
+            }
+            elements[0 + 0 * 4] = 2.0f / (right - left);
+            elements[1 + 1 * 4] = 2.0f / (top - bottom);
+            elements[2 + 2 * 4] = 2.0f / (near - far);
+            elements[0 + 3 * 4] = (left + right) / (left - right);
+            elements[1 + 3 * 4] = (bottom + top) / (bottom - top);
+            elements[2 + 3 * 4] = (far + near) / (near - far);
+            return *this;
         }
 
         //透视投影矩阵
-        mat4x4 mat4x4::perspective(float fov, float aspectRatio, float near, float far)
+        mat4x4 &mat4x4::perspective(float fov, float aspectRatio, float near, float far)
         {
-            mat4x4 result(1.0f);
-
             float q = 1.0f / tan(toRadians(0.5f * fov));
             float a = q / aspectRatio;
 
             float b = (near + far) / (near - far);
             float c = (2.0f * near * far) / (near - far);
 
-            result.elements[0 + 0 * 4] = a;
-            result.elements[1 + 1 * 4] = q;
-            result.elements[2 + 2 * 4] = b;
-            result.elements[3 + 2 * 4] = -1.0f;
-            result.elements[2 + 3 * 4] = c;
+            elements[0 + 0 * 4] = a;
+            elements[1 + 1 * 4] = q;
+            elements[2 + 2 * 4] = b;
+            elements[3 + 2 * 4] = -1.0f;
+            elements[2 + 3 * 4] = c;
 
-            return result;
+            return *this;
+        }
+        void mat4x4::setColumn(int col, vec4 &value)
+        {
+            elements[0 * 4 + col] = value.x;
+            elements[1 * 4 + col] = value.y;
+            elements[2 * 4 + col] = value.z;
+            elements[3 * 4 + col] = value.w;
+        }
+
+        mat4x4 &mat4x4::LookAtMatrixBuild(const vec3 &pos, const vec3 &focal, const vec3 &up)
+        {
+            vec3 zaxis = pos - focal; //相机朝向
+            zaxis.normalize();
+
+            vec3 xaxis = (vec3)up.crossProduct(zaxis);
+            xaxis.normalize();
+
+            vec3 yaxis = zaxis.crossProduct(xaxis); //因为up大概率不与相机朝向垂直
+            //yaxis.normalize();  //没必要
+
+            //逆矩阵 == 转置矩阵 so  设置行向量
+            elements[0] = xaxis.x;
+            elements[1] = yaxis.x;
+            elements[2] = zaxis.x;
+            elements[3] = 0;
+
+            elements[4] = xaxis.y;
+            elements[5] = yaxis.y;
+            elements[6] = zaxis.y;
+            elements[7] = 0;
+
+            elements[8] = xaxis.z;
+            elements[9] = yaxis.z;
+            elements[10] = zaxis.z;
+            elements[11] = 0;
+
+            elements[12] = -(xaxis * pos);
+            elements[13] = -(yaxis * pos);
+            elements[14] = -(zaxis * pos);
+            elements[15] = 1;
+            return *this;
         }
     }
 }

@@ -35,13 +35,19 @@ namespace phantom
             static mat4x4 translation(const vec3 &translation);
             static mat4x4 identity();
             mat4x4 &scale(float x, float y, float z);
-            //正交矩阵
-            static mat4x4 orthographic(float left, float right, float bottom, float top, float near, float far);
-            //透视矩阵
-            static mat4x4 perspective(float fov, float aspectRatio, float near, float far);
+
             //transform matrix
             mat4x4 &translate(const vec3 &t);
             mat4x4 &translate(float x, float y, float z);
+
+            void setColumn(int col, vec4 &value);
+            //正交矩阵
+            mat4x4 &orthographic(float left, float right, float bottom, float top, float near, float far);
+            //透视矩阵
+            mat4x4 &perspective(float fov, float aspectRatio, float near, float far);
+            //LookAt视图矩阵
+            mat4x4 &LookAtMatrixBuild(const vec3 &pos, const vec3 &focal, const vec3 &up);
+
             union
             {
                 float elements[4 * 4];
