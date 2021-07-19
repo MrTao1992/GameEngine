@@ -6,12 +6,6 @@ namespace phantom
 {
     namespace graphics
     {
-
-        static void windowResize(GLFWwindow *window, int width, int height);
-        //添加键盘事件回调
-        static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods);
-        //添加鼠标事件
-        static void cursor_position_callback(GLFWwindow *window, double xpos, double ypos);
         Window::Window(const char *title, int width, int height)
         {
             m_Title = title;

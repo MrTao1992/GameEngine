@@ -26,6 +26,11 @@ namespace phantom
             void terminate() const;
             inline int getWidth() const { return m_Width; }
             inline int getHeight() const { return m_Height; }
+            friend void windowResize(GLFWwindow *window, int width, int height);
+            //添加键盘事件回调
+            friend void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods);
+            //添加鼠标事件
+            friend void cursor_position_callback(GLFWwindow *window, double xpos, double ypos);
 
         private:
             bool init();

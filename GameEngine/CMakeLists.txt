@@ -12,7 +12,11 @@ elseif(CMAKE_HOST_UNIX)
 endif()
 
 project (GameEngine)
-include_directories("${PROJECT_SOURCE_DIR}/PhantomCore")
+include_directories("${PROJECT_SOURCE_DIR}/PhantomCore/src/common")
+include_directories("${PROJECT_SOURCE_DIR}/PhantomCore/src/graphics")
+include_directories("${PROJECT_SOURCE_DIR}/PhantomCore/src/interface")
+include_directories("${PROJECT_SOURCE_DIR}/PhantomCore/src/maths")
+include_directories("${PROJECT_SOURCE_DIR}/PhantomCore/src/utils")
 include_directories("${PROJECT_SOURCE_DIR}/Dependencies/GLFW/include")
 include_directories("${PROJECT_SOURCE_DIR}/Dependencies/GLEW/include")
 

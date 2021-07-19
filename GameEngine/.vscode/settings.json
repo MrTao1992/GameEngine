@@ -9,6 +9,7 @@
         "vector": "cpp",
         "cmath": "cpp",
         "queue": "cpp",
-        "deque": "cpp"
+        "deque": "cpp",
+        "iostream": "cpp"
     }
 }
