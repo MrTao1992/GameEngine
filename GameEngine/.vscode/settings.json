@@ -5,6 +5,10 @@
         "iosfwd": "cpp",
         "xstring": "cpp",
         "xutility": "cpp",
-        "xiosbase": "cpp"
+        "xiosbase": "cpp",
+        "vector": "cpp",
+        "cmath": "cpp",
+        "queue": "cpp",
+        "deque": "cpp"
     }
 }

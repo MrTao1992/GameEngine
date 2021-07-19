@@ -11,7 +11,7 @@ namespace phantom
         {
         public:
             Shader(const char *_vfilename, const char *_ffilename);
-            ~Shader();
+            virtual ~Shader();
             GLint m_ShaderId;
             void bind();
             void unbind();

@@ -72,6 +72,11 @@ namespace phantom
         {
             glfwPollEvents();
             glfwSwapBuffers(m_Window);
+            GLenum error = glGetError();
+            if (error != GL_NO_ERROR)
+            {
+                std::cout << "GL is error" << error << std::endl;
+            }
         }
 
         bool Window::closed() const
