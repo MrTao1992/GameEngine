@@ -12,7 +12,7 @@ add_custom_command(TARGET sample PRE_BUILD
 COMMAND ${CMAKE_COMMAND} -E copy_directory
 ${CMAKE_SOURCE_DIR}/assets/Resources   "${PROJECT_BINARY_DIR}/sample")
 
-if(WINDOWS)
+if(OS_MACOS)
 	# copy dll
     add_custom_command(TARGET sample 
     POST_BUILD COMMAND 
@@ -24,7 +24,7 @@ if(WINDOWS)
 							glew32.lib
 							glfw3.lib)
 
-elseif(MACOS)
+elseif(OS_MACOS)
     target_link_libraries(sample  
     	PhantomCore 
     	${OPENGL_LIBRARIES} 

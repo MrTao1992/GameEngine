@@ -1,10 +1,10 @@
-#include "src/graphics/window.h"
-#include "src/maths/maths.h"
-#include "src/graphics/shader.h"
+#include "window.h"
+#include "maths.h"
+#include "shader.h"
 #include <iostream>
 #include <string>
 #include <windows.h>
-#include "src/graphics/renderer.h"
+#include "renderer.h"
 using namespace phantom::maths;
 
 using namespace phantom;

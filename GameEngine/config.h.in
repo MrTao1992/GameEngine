@@ -1,0 +1,9 @@
+#cmakedefine HAVE_MAKE_UNIQUE
+#cmakedefine HAVE_CLAMP
+#cmakedefine USE_ISPC
+#cmakedefine OS_WINDOWS
+#cmakedefine OS_LINUX
+#cmakedefine OS_BSD
+#cmakedefine OS_ANDROID
+#cmakedefine OS_MACOS
+#cmakedefine OS_WEBASSEMBLY
