@@ -12,6 +12,7 @@ namespace Phantom
         std::wcout << m_Config;
         return Result;
     }
+
     void BaseApplication::Finalize()
     {
     }

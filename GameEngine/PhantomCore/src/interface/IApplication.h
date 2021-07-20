@@ -5,6 +5,7 @@ namespace Phantom
 {
     Interface IApplication : implements IRuntimeModule
     {
+    public:
         //初始化函数
         virtual int Initialize() = 0;
         //完成结束函数

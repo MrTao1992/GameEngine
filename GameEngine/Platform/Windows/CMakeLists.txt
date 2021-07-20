@@ -1,0 +1,2 @@
+add_executable(Window WindowsApplication.cpp)
+target_link_libraries(Window PhantomCore)
