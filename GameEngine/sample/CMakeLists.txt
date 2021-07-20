@@ -25,7 +25,6 @@ if(WINDOWS)
 							glfw3.lib)
 
 elseif(MACOS)
-
     target_link_libraries(sample  
     	PhantomCore 
     	${OPENGL_LIBRARIES} 

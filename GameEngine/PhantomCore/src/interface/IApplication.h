@@ -14,6 +14,6 @@ namespace Phantom
         //是否退出
         virtual bool IsQuit() = 0;
         //初始化应用配置
-        virtual GfxConfiguration &GfxConfiguration() = 0;
+        virtual GfxConfiguration &GfxCfg() = 0;
     };
 }

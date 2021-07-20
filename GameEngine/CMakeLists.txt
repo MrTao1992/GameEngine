@@ -50,4 +50,5 @@ elseif(MACOS)
 endif(WINDOWS)
 
 add_subdirectory(PhantomCore)
+add_subdirectory(Platform)
 add_subdirectory(sample)
