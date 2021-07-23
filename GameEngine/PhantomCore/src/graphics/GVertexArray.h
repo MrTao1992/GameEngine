@@ -3,7 +3,7 @@
 #include <glad/glad.h>
 #include <vector>
 #include "GVertexBuffer.h"
-namespace phantom
+namespace Phantom
 {
     namespace graphics
     {

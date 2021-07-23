@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-namespace phantom
+namespace Phantom
 {
     namespace maths
     {

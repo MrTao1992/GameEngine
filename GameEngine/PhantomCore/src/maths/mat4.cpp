@@ -1,6 +1,6 @@
 #include "mat4.h"
 #include "utils.h"
-namespace phantom
+namespace Phantom
 {
     namespace maths
     {

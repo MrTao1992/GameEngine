@@ -1,5 +1,5 @@
 #include "renderer.h"
-namespace phantom
+namespace Phantom
 {
     namespace graphics
     {

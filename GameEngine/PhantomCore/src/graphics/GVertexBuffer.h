@@ -1,7 +1,7 @@
 #ifndef _GL_VERTEXBUFFER_H_
 #define _GL_VERTEXBUFFER_H_
 #include <glad/glad.h>
-namespace phantom
+namespace Phantom
 {
     namespace graphics
     {

@@ -5,10 +5,10 @@
 #include <string>
 #include <windows.h>
 #include "renderer.h"
-using namespace phantom::maths;
+using namespace Phantom::maths;
 
-using namespace phantom;
-using namespace graphics;
+using namespace Phantom;
+using namespace Phantom::graphics;
 double mouse_x = 0.0;
 double mouse_y = 0.0;
 const char *MVP_NAME_M = "ojbect2world_matrix";

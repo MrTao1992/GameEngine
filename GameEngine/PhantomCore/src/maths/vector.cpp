@@ -1,6 +1,6 @@
 #include "vector.h"
 #include "utils.h"
-namespace phantom
+namespace Phantom
 {
     namespace maths
     {

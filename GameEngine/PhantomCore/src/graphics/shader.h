@@ -3,7 +3,7 @@
 
 #include <glad/glad.h>
 #include "../maths/maths.h"
-namespace phantom
+namespace Phantom
 {
     namespace graphics
     {

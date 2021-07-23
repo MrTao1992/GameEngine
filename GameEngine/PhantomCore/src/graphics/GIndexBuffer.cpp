@@ -1,5 +1,5 @@
 #include "GIndexBuffer.h"
-namespace phantom
+namespace Phantom
 {
     namespace graphics
     {

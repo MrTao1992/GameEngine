@@ -1,7 +1,7 @@
 #include "shader.h"
 #include "../utils/fileUtils.h"
 
-namespace phantom
+namespace Phantom
 {
     namespace graphics
     {

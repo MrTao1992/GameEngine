@@ -5,7 +5,7 @@
 extern const char *MVP_NAME_M;
 extern const char *MVP_NAME_V;
 extern const char *MVP_NAME_P;
-namespace phantom
+namespace Phantom
 {
     namespace graphics
     {

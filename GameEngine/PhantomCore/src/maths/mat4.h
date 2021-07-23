@@ -9,7 +9,7 @@
 //                         |  3  7 11 15 |
 
 // 4x4 matrix
-namespace phantom
+namespace Phantom
 {
     namespace maths
     {

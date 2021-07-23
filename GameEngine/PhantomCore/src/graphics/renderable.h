@@ -2,8 +2,8 @@
 #include "../maths/maths.h"
 #include "GVertexArray.h"
 #include "shader.h"
-using namespace phantom::maths;
-namespace phantom
+using namespace Phantom::maths;
+namespace Phantom
 {
     namespace graphics
     {

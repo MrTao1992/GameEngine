@@ -1,5 +1,5 @@
 #include "GVertexArray.h"
-namespace phantom
+namespace Phantom
 {
     namespace graphics
     {

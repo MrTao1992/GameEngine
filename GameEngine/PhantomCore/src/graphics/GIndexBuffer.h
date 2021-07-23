@@ -2,7 +2,7 @@
 #define _GL_INDEXBUFFER_H_
 #include <glad/glad.h>
 
-namespace phantom
+namespace Phantom
 {
     namespace graphics
     {
