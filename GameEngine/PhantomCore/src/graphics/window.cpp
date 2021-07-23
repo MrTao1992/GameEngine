@@ -25,7 +25,7 @@ namespace Phantom
             if (!glfwInit())
             {
                 std::cout << "Failed to initialize GLFW!" << std::endl;
-                return false;
+                return -1;
             }
             //版本号 opengl3.0 (举例)
             glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -36,7 +36,7 @@ namespace Phantom
             if (!m_Window)
             {
                 std::cout << "Failed to create GLFW window!" << std::endl;
-                return false;
+                return -1;
             }
             glfwSetKeyCallback(m_Window, key_callback);
             glfwSetWindowSizeCallback(m_Window, windowResize);
@@ -50,11 +50,11 @@ namespace Phantom
             {
                 std::cout << "Failed to initialize glew!" << std::endl;
                 glfwTerminate();
-                return false;
+                return -1;
             }
 
             std::cout << glGetString(GL_VERSION) << std::endl;
-            return true;
+            return 0;
         }
 
         void Window::clear() const

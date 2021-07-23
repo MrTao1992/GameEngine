@@ -1,4 +1,4 @@
-#include "WindowsApplication.h"
+#include "PlatformApplication.h"
 #include <tchar.h>
 namespace Phantom
 {

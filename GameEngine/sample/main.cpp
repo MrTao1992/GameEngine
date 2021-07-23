@@ -19,7 +19,6 @@ int main()
     char curPath[MAX_PATH];
     GetCurrentDirectoryA(MAX_PATH, curPath);
     printf("当前工作目录%s", curPath);
-
     Window window("phantom!", 960, 540);
     glClearColor(0.2f, 0.3f, 0.8f, 1.0f);
     Shader shader("shaders/vert_light.shader", "shaders/frag_light.shader");

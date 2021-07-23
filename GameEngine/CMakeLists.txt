@@ -34,6 +34,10 @@ ELSEIF(${CMAKE_SYSTEM_NAME} MATCHES Psp2)
     set(OS_PSP2 1)
 ENDIF(UNIX)
 
+IF (CMAKE_BUILD_TYPE STREQUAL Debug)
+    ADD_DEFINITIONS(-D_DEBUG)
+ENDIF()
+
 project (GameEngine)
 include_directories("${PROJECT_SOURCE_DIR}/PhantomCore/src/common")
 include_directories("${PROJECT_SOURCE_DIR}/PhantomCore/src/graphics")
@@ -42,6 +46,7 @@ include_directories("${PROJECT_SOURCE_DIR}/PhantomCore/src/maths")
 include_directories("${PROJECT_SOURCE_DIR}/PhantomCore/src/utils")
 include_directories("${PROJECT_SOURCE_DIR}/Dependencies/GLFW/include")
 include_directories("${PROJECT_SOURCE_DIR}/Platform/${MYGE_TARGET_PLATFORM}") # 根据平台来决定include
+include_directories("${PROJECT_SOURCE_DIR}/Dependencies/src/glad/include")
 
 include_directories(${PROJECT_SOURCE_DIR})
 configure_file(${PROJECT_SOURCE_DIR}/config.h.in ${PROJECT_SOURCE_DIR}/config.h)
@@ -52,6 +57,8 @@ if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
     message(STATUS "---------clang | libstdc++")
 endif()
 
+find_package(OpenGL REQUIRED)
+
 if(OS_WINDOWS)
     link_directories("${PROJECT_SOURCE_DIR}/Dependencies/GLFW/lib-vc2015")
 elseif(OS_MACOS)
@@ -61,17 +68,14 @@ elseif(OS_MACOS)
 	FIND_LIBRARY(IOKit_LIBRARY IOKit)
 	FIND_LIBRARY(COREVIDEO_LIB NAMES CoreVideo)
     FIND_LIBRARY(OpenGL_LIBRARY OpenGL )
-
     MARK_AS_ADVANCED (COCOA_LIBRARY
     				IOKit_LIBRARY
     				COREVIDEO_LIB
-                    OpenGL_LIBRARY)
-    SET(EXTRA_LIBS ${COCOA_LIBRARY} ${IOKit_LIBRARY} ${COREVIDEO_LIB} ${OpenGL_LIBRARY})
+                    OPENGL_LIBRARIES)
+    SET(EXTRA_LIBS ${COCOA_LIBRARY} ${IOKit_LIBRARY} ${COREVIDEO_LIB} ${OPENGL_LIBRARIES} )
 
     link_directories("${PROJECT_SOURCE_DIR}/Dependencies/GLFW/lib-mac")
-    link_directories("${PROJECT_SOURCE_DIR}/Dependencies/GLEW/lib/Release/mac")
     
-    # MESSAGE( STATUS "message openGL include = ${OPENGL_INCLUDE_DIR}.")
 endif(OS_WINDOWS)
 
 add_subdirectory(PhantomCore)
