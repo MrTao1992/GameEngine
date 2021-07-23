@@ -41,7 +41,7 @@ include_directories("${PROJECT_SOURCE_DIR}/PhantomCore/src/interface")
 include_directories("${PROJECT_SOURCE_DIR}/PhantomCore/src/maths")
 include_directories("${PROJECT_SOURCE_DIR}/PhantomCore/src/utils")
 include_directories("${PROJECT_SOURCE_DIR}/Dependencies/GLFW/include")
-include_directories("${PROJECT_SOURCE_DIR}/Dependencies/GLEW/include")
+include_directories("${PROJECT_SOURCE_DIR}/Platform/${MYGE_TARGET_PLATFORM}") # 根据平台来决定include
 
 include_directories(${PROJECT_SOURCE_DIR})
 configure_file(${PROJECT_SOURCE_DIR}/config.h.in ${PROJECT_SOURCE_DIR}/config.h)
@@ -53,8 +53,7 @@ if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
 endif()
 
 if(OS_WINDOWS)
-    link_directories("${PROJECT_SOURCE_DIR}/Dependencies/GLFW/lib-vc2015"
-                     "${PROJECT_SOURCE_DIR}/Dependencies/GLEW/lib/Release/Win32")
+    link_directories("${PROJECT_SOURCE_DIR}/Dependencies/GLFW/lib-vc2015")
 elseif(OS_MACOS)
 	INCLUDE_DIRECTORIES ( /System/Library/Frameworks )
 	FIND_LIBRARY(COCOA_LIBRARY Cocoa)
@@ -76,5 +75,6 @@ elseif(OS_MACOS)
 endif(OS_WINDOWS)
 
 add_subdirectory(PhantomCore)
+add_subdirectory(Game)
 add_subdirectory(Platform)
 add_subdirectory(sample)

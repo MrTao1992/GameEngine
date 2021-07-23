@@ -46,7 +46,7 @@ namespace phantom
             glfwSwapInterval(1);
 
             // must after  glfwMakeContextCurrent
-            if (glewInit() != GLEW_OK)
+            if (gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
             {
                 std::cout << "Failed to initialize glew!" << std::endl;
                 glfwTerminate();

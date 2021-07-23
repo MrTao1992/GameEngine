@@ -1,6 +1,6 @@
 #ifndef _GL_VERTEXARRAY_H_
 #define _GL_VERTEXARRAY_H_
-#include <GL/glew.h>
+#include <glad/glad.h>
 #include <vector>
 #include "GVertexBuffer.h"
 namespace phantom

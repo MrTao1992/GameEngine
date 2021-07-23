@@ -1,7 +1,7 @@
 #ifndef _FILE_SHADER_H_
 #define _FILE_SHADER_H_
 
-#include <GL/glew.h>
+#include <glad/glad.h>
 #include "../maths/maths.h"
 namespace phantom
 {

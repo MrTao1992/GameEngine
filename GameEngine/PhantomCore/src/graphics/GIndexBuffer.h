@@ -1,6 +1,6 @@
 #ifndef _GL_INDEXBUFFER_H_
 #define _GL_INDEXBUFFER_H_
-#include <gl/glew.h>
+#include <glad/glad.h>
 
 namespace phantom
 {

@@ -1,5 +1,5 @@
 #pragma once
-#include "GL/glew.h"
+#include <glad/glad.h>
 #include "renderable.h"
 #include <deque>
 extern const char *MVP_NAME_M;
