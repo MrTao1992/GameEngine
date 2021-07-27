@@ -6,7 +6,7 @@ ELSEIF(UNIX)
     IF(APPLE)
         # Apple specific code
         add_subdirectory(Darwin)
-        add_subdirectory(Cef)
+        #add_subdirectory(Cef)
     ELSEIF(ANDROID)
         add_subdirectory(Android)
     ELSEIF(WA)
@@ -17,7 +17,7 @@ ELSEIF(UNIX)
     ELSE(APPLE)
         # Linux specific code
         add_subdirectory(Linux)
-        add_subdirectory(Cef)
+        #add_subdirectory(Cef)
     ENDIF(APPLE)
 ELSE()
     # Empty

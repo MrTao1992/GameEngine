@@ -12,6 +12,9 @@ namespace Phantom
         virtual bool IsQuit();
         inline GfxConfiguration &GfxCfg() { return m_Config; };
 
+        virtual void CreateMainWindow() = 0;
+        virtual void* GetMainWindowHandler() = 0;
+
     protected:
         virtual void OnDraw(){};
         static bool m_bQuit;
