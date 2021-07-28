@@ -16,7 +16,7 @@ int main(int argc, char **argv)
         printf("App Initialize failed, will exit now.");
         return ret;
     }
-
+    m_app->CreateMainWindow();
     if (ret = m_graphicsManager->Initialize() != 0)
     {
         printf("GraphicsManager Initialize failed, will exit now.");

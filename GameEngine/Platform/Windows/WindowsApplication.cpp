@@ -1,20 +1,12 @@
-#include "PlatformApplication.h"
+#include "WindowsApplication.h"
 #include <tchar.h>
 namespace Phantom
 {
-    int WindowsApplication::Initialize()
+    void WindowsApplication::CreateMainWindow()
     {
-        int result;
-
-        // first call base class initialization
-        result = BaseApplication::Initialize();
-
-        if (result != 0)
-            exit(result);
         // 获取控制台程序的句柄
         HINSTANCE hInstance = GetModuleHandle(NULL);
-        //窗口的句柄，由函数填充
-        HWND hWnd;
+
         //该结构体保存窗口类的信息
         WNDCLASSEX wc;
         //清除要使用的窗口类
@@ -30,23 +22,21 @@ namespace Phantom
         //注册窗口类
         RegisterClassEx(&wc);
         //创建窗口并使用结果作为句柄
-        hWnd = CreateWindowEx(0,
-                              _T("GameEngineFromScratch"), // name of the window class
-                              LPCWSTR(m_Config.appName),   // title of the window
-                              WS_OVERLAPPEDWINDOW,         // window style
-                              CW_USEDEFAULT,               // x-position of the window
-                              CW_USEDEFAULT,               // y-position of the window
-                              m_Config.screenWidth,        // width of the window
-                              m_Config.screenHeight,       // height of the window
-                              NULL,                        // we have no parent window, NULL
-                              NULL,                        // we aren't using menus, NULL
-                              hInstance,                   // application handle
-                              this);                       // pass pointer to current object
-
+        m_hWnd = CreateWindowEx(0,
+                                _T("GameEngineFromScratch"), // name of the window class
+                                LPCWSTR(m_Config.appName),   // title of the window
+                                WS_OVERLAPPEDWINDOW,         // window style
+                                CW_USEDEFAULT,               // x-position of the window
+                                CW_USEDEFAULT,               // y-position of the window
+                                m_Config.screenWidth,        // width of the window
+                                m_Config.screenHeight,       // height of the window
+                                NULL,                        // we have no parent window, NULL
+                                NULL,                        // we aren't using menus, NULL
+                                hInstance,                   // application handle
+                                this);                       // pass pointer to current object
+        m_hDc = GetDC(m_hWnd);
         //展示窗口
-        ShowWindow(hWnd, SW_SHOW);
-        m_hWnd = hWnd;
-        return result;
+        ShowWindow(m_hWnd, SW_SHOW);
     }
 
     void WindowsApplication::Finalize()

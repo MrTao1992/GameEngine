@@ -3,7 +3,7 @@
 #include "IRuntimeModule.h"
 namespace Phantom
 {
-    Interface IApplication : implements IRuntimeModule
+    IInterface IApplication : implements IRuntimeModule
     {
     public:
         //初始化函数
@@ -16,5 +16,9 @@ namespace Phantom
         virtual bool IsQuit() = 0;
         //初始化应用配置
         virtual GfxConfiguration &GfxCfg() = 0;
+        //获取窗口事件消息处理程序
+        virtual void *GetMainWindowHandler() = 0;
+        //创建程序窗口
+        virtual void CreateMainWindow() = 0;
     };
 }

@@ -2,21 +2,18 @@
 #include <windows.h>
 #include <windowsx.h>
 #include "BaseApplication.h"
-#include "GraphicsManager.h"
 
 namespace Phantom
 {
     class WindowsApplication : public BaseApplication
     {
     public:
-        WindowsApplication(GfxConfiguration &config)
-            : BaseApplication(config){};
+        using BaseApplication::BaseApplication;
+        void Finalize() override;
+        void Tick() override;
 
-        virtual int Initialize();
-        virtual void Finalize();
-        virtual void Tick();
-
-        inline HWND GetMainWindow() const { return m_hWnd; };
+        void *GetMainWindowHandler() override { return m_hWnd; };
+        void CreateMainWindow() override;
 
     private:
         // 　　hwnd：指向窗口的句柄。
@@ -27,6 +24,10 @@ namespace Phantom
 
     private:
         HWND m_hWnd;
+        HDC m_hDc;
+        bool m_bInDrag = false;
+        int m_iPreviousX = 0;
+        int m_iPreviousY = 0;
     };
 
 }
