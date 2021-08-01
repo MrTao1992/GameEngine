@@ -70,5 +70,5 @@ namespace Phantom
     private:
         std::vector<std::string> m_strSearchPath;
     };
-    extern AssetLoadManager g_pAssetLoader;
+    extern AssetLoadManager *g_pAssetLoader;
 }
