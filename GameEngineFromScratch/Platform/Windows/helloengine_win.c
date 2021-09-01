@@ -1,4 +1,4 @@
-// include the basic windows header file
+//使用GDI创建窗口绘制图形
 #include <windows.h>
 #include <windowsx.h>
 #include <tchar.h>

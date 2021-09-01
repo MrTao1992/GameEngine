@@ -1,3 +1,4 @@
+//使用xcb创建窗口，绘制图形
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
