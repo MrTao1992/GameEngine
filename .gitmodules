@@ -1,0 +1,3 @@
+[submodule "GameEngineFromScratch/Platform/Windows/DirectXMath"]
+	path = GameEngineFromScratch/Platform/Windows/DirectXMath
+	url = https://github.com/Microsoft/DirectXMath.git
