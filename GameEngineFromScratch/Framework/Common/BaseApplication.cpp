@@ -1,11 +1,23 @@
 #include "BaseApplication.hpp"
+#include <iostream>
+
+using namespace My;
+
+bool My::BaseApplication::m_bQuit = false;
+
+My::BaseApplication::BaseApplication(GfxConfiguration& cfg)
+    :m_Config(cfg)
+{
+}
 
 // Parse command line, read configuration, initialize all sub modules
 int My::BaseApplication::Initialize()
 {
-	m_bQuit = false;
+    int result = 0;
 
-	return 0;
+    std::wcout << m_Config;
+
+	return result;
 }
 
 

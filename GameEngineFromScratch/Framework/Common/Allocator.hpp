@@ -1,5 +1,5 @@
 #include <cstddef>
-#include <cstdint>
+#include <stdint.h>
 
 namespace My
 {
@@ -56,5 +56,8 @@ namespace My
         uint32_t m_nPages;
         uint32_t m_nBlocks;
         uint32_t m_nFreeBlocks;
+		 // disable copy & assignment
+		 Allocator(const Allocator& clone);
+		 Allocator &operator=(const Allocator &rhs);
     };
 }

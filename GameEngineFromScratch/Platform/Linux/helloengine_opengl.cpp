@@ -280,10 +280,11 @@ int main(void)
     else
     {
         int context_attribs[] =
-            {
-                GLX_CONTEXT_MAJOR_VERSION_ARB, 4,
-                GLX_CONTEXT_MINOR_VERSION_ARB, 0,
-                None};
+          {
+            GLX_CONTEXT_MAJOR_VERSION_ARB, 3,
+            GLX_CONTEXT_MINOR_VERSION_ARB, 0,
+            None
+          };
 
         printf("Creating context\n");
         context = glXCreateContextAttribsARB(display, fb_config, 0,

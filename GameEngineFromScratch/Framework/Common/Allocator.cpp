@@ -8,9 +8,10 @@
 
 using namespace My;
 
-My::Allocator::Allocator() : m_szDataSize(0), m_szPageSize(0),
-                             m_szBlockSize(0), m_szAlignmentSize(0),
-                             m_nBlocksPerPage(0), m_pPageList(0), m_pFreeList(0)
+My::Allocator::Allocator()
+        : m_pPageList(nullptr), m_pFreeList(nullptr), 
+        m_szDataSize(0), m_szPageSize(0), 
+        m_szAlignmentSize(0), m_szBlockSize(0), m_nBlocksPerPage(0) 
 {
 }
 My::Allocator::Allocator(size_t data_size, size_t page_size, size_t alignment) : m_pPageList(nullptr), m_pFreeList(nullptr)
@@ -32,7 +33,7 @@ void My::Allocator::Reset(size_t data_size, size_t page_size, size_t alignment)
 #if defined(_DEBUG)
     assert(alignment > 0 && ((alignment & (alignment - 1))) == 0);
 #endif
-    m_szDataSize = ALIGN(minimal_size, alignment);
+    m_szBlockSize = ALIGN(minimal_size, alignment);
 
     m_szAlignmentSize = m_szBlockSize - minimal_size;
 
@@ -58,8 +59,7 @@ void *My::Allocator::Allocate()
         m_pPageList = pNewPage;
         BlockHeader *pBlock = pNewPage->Blocks();
         // link each block in the page
-        for (uint32_t i = 0; i < m_nBlocksPerPage - 1; i++)
-        {
+        for (uint32_t i = 0; i < m_nBlocksPerPage; i++) {
             pBlock->pNext = NextBlock(pBlock);
             pBlock = NextBlock(pBlock);
         }

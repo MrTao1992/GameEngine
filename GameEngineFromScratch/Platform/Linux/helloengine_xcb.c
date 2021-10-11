@@ -18,6 +18,8 @@ int main(void)
     uint32_t values[2];
     uint8_t isQuit = 0;
 
+	char title[] = "Hello, Engine!";
+	char title_icon[] = "Hello, Engine! (iconified)";
     //到X服务器建立连接
     pConn = xcb_connect(0, 0);
     //获取首场景

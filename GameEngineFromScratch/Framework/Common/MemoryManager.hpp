@@ -11,7 +11,7 @@ namespace My
         template <typename T, typename... Arguments>
         T *New(Arguments... parameters)
         {
-            return new (Allocate(sizeof(T))) T(parameters...)
+            return new (Allocate(sizeof(T))) T(parameters...);
         }
 
         template <typename T>
