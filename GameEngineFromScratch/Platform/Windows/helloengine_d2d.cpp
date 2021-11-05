@@ -130,16 +130,15 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
     bool wasHandled = false;
     switch (message)
     {
-    case WM_CREATE:
-        if (FAILED(D2D1CreateFactory(
-                D2D1_FACTORY_TYPE_SINGLE_THREADED, &pFactory)))
-        {
-            result = -1; // Fail CreateWindowEx.
-            return result;
-        }
-        wasHandled = true;
-        result = 0;
-        break;
+	case WM_CREATE:
+		if (FAILED(D2D1CreateFactory(
+					D2D1_FACTORY_TYPE_SINGLE_THREADED, &pFactory)))
+		{
+			result = -1; // Fail CreateWindowEx.
+		}
+		wasHandled = true;
+        result = 1;
+        break;	
 
     case WM_PAINT:
     {

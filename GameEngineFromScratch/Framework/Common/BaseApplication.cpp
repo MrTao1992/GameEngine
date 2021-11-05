@@ -5,8 +5,8 @@ using namespace My;
 
 bool My::BaseApplication::m_bQuit = false;
 
-My::BaseApplication::BaseApplication(GfxConfiguration& cfg)
-    :m_Config(cfg)
+My::BaseApplication::BaseApplication(GfxConfiguration &cfg)
+    : m_Config(cfg)
 {
 }
 
@@ -17,15 +17,13 @@ int My::BaseApplication::Initialize()
 
     std::wcout << m_Config;
 
-	return result;
+    return result;
 }
-
 
 // Finalize all sub modules and clean up all runtime temporary files.
 void My::BaseApplication::Finalize()
 {
 }
-
 
 // One cycle of the main loop
 void My::BaseApplication::Tick()
@@ -34,6 +32,5 @@ void My::BaseApplication::Tick()
 
 bool My::BaseApplication::IsQuit()
 {
-	return m_bQuit;
+    return m_bQuit;
 }
-

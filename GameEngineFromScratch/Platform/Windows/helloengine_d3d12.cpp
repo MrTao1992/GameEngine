@@ -12,6 +12,7 @@
 #include <DirectXMath.h>
 #include <DirectXPackedVector.h>
 #include <DirectXColors.h>
+#include "DirectXMath.h"
 
 #include <wrl/client.h>
 
@@ -466,8 +467,7 @@ void InitPipeline()
     psod.SampleMask = UINT_MAX;
     psod.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
     psod.NumRenderTargets = 1;
-    psod.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
-    psod.DSVFormat = DXGI_FORMAT_D32_FLOAT;
+    psod.RTVFormats[0]  = DXGI_FORMAT_R8G8B8A8_UNORM;
     psod.SampleDesc.Count = 1;
 
     ThrowIfFailed(g_pDev->CreateGraphicsPipelineState(&psod, IID_PPV_ARGS(&g_pPipelineState)));
@@ -893,8 +893,7 @@ void Update()
     static float rotationAngle = 0.0f;
 
     rotationAngle += rotationSpeed;
-    if (rotationAngle >= XM_PI * 2.0)
-        rotationAngle -= XM_PI * 2.0;
+    if (rotationAngle >= XM_PI * 2.0) rotationAngle -= XM_PI * 2.0;
     const XMMATRIX m = XMMatrixRotationRollPitchYaw(rotationAngle, rotationAngle, 0.0f);
     XMStoreFloat4x4(&g_ConstantBufferData.m_modelView, XMMatrixTranspose(m * g_mWorldToViewMatrix));
     XMStoreFloat4x4(&g_ConstantBufferData.m_modelViewProjection, XMMatrixTranspose(m * g_mViewProjectionMatrix));
@@ -1035,9 +1034,6 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
     }
 
     // Handle any messages the switch statement didn't
-    if (!wasHandled)
-    {
-        result = DefWindowProc(hWnd, message, wParam, lParam);
-    }
+    if (!wasHandled) { result = DefWindowProc (hWnd, message, wParam, lParam); }
     return result;
 }

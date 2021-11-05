@@ -1,6 +1,7 @@
 #include <windows.h>
 #include <windowsx.h>
 #include <tchar.h>
+#include <stdint.h>
 
 #include <d3d11.h>
 #include <d3d11_1.h>
@@ -166,6 +167,7 @@ HRESULT CreateGraphicsResources(HWND hWnd)
                                                    D3D_FEATURE_LEVEL_9_1};
         D3D_FEATURE_LEVEL FeatureLevelSupported;
 
+      	HRESULT hr = S_OK;
         // 创建一个设备,设备上下文和交换链使用结构中的信息
         hr = D3D11CreateDeviceAndSwapChain(NULL,
                                            D3D_DRIVER_TYPE_HARDWARE,
@@ -326,13 +328,13 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
         wasHandled = true;
         break;
 
-    case WM_SIZE:
-        if (g_pSwapchain != nullptr)
-        {
-            DiscardGraphicsResources();
-            //g_pSwapchain->ResizeBuffers(0, 0, 0, DXGI_FORMAT_UNKNOWN, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
-        }
-        wasHandled = true;
+	case WM_SIZE:
+		if (g_pSwapchain != nullptr)
+		{
+		    DiscardGraphicsResources();
+			g_pSwapchain->ResizeBuffers(0, 0, 0, DXGI_FORMAT_UNKNOWN, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
+		}
+		wasHandled = true;
         break;
 
     case WM_DESTROY:

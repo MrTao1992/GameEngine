@@ -32,3 +32,12 @@
 *.app
 
 build/
+*.*~
+*.pdb
+*.ilk
+*.vso
+*.pso
+**/.vs
+*.swp
+**/Debug
+**/Release

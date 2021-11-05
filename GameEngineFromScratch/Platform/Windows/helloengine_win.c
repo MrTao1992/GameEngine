@@ -2,7 +2,7 @@
 #include <windows.h>
 #include <windowsx.h>
 #include <tchar.h>
-#pragma comment(lib, "gdi32.lib")
+
 // the WindowProc function prototype
 LRESULT CALLBACK WindowProc(HWND hWnd,
                             UINT message,
